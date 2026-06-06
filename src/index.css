@@ -343,6 +343,31 @@
 .about-left { position: sticky; top: 100px; }
 
 /* ═══════════════════════════════════════════
+   NAVBAR RESPONSIVE
+═══════════════════════════════════════════ */
+.navbar-desktop-links {
+  display: flex;
+}
+.navbar-desktop-right {
+  display: flex;
+}
+.navbar-mobile-right {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .navbar-desktop-links {
+    display: none !important;
+  }
+  .navbar-desktop-right {
+    display: none !important;
+  }
+  .navbar-mobile-right {
+    display: flex !important;
+  }
+}
+
+/* ═══════════════════════════════════════════
    MOBILE — max-width: 768px
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
