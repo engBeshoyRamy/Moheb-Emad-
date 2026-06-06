@@ -2,9 +2,6 @@ import { useRef, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useScrollTo } from '../hooks/useScrollTo'
 
-/* ─────────────────────────────────────────
-   Photo Portrait
-───────────────────────────────────────── */
 function Portrait() {
   const scanRef = useRef(null)
   const pwA = useRef(null)
@@ -17,28 +14,20 @@ function Portrait() {
 
     const animate = () => {
       t += 0.5
-
       if (pwA.current && pwB.current) {
         const y = 570
         let dA = `M0,${y}`
         let dB = `M0,${y + 12}`
-
         for (let x = 0; x <= W; x += 5) {
           dA += ` L${x},${y + Math.sin(x * 0.022 + t * 0.035) * 20 + Math.cos(x * 0.044 + t * 0.028) * 9}`
           dB += ` L${x},${y + 12 + Math.cos(x * 0.018 + t * 0.042) * 16 + Math.sin(x * 0.036 + t * 0.022) * 7}`
         }
-
         pwA.current.setAttribute('d', dA + ` L${W},612 L0,612 Z`)
         pwB.current.setAttribute('d', dB + ` L${W},612 L0,612 Z`)
       }
-
       if (scanRef.current) {
-        scanRef.current.setAttribute(
-          'y',
-          (Math.sin(t * 0.012) * 306 + 306).toFixed(1)
-        )
+        scanRef.current.setAttribute('y', (Math.sin(t * 0.012) * 306 + 306).toFixed(1))
       }
-
       rafId = requestAnimationFrame(animate)
     }
 
@@ -52,17 +41,10 @@ function Portrait() {
         src="/portrait.jpg"
         alt="Moheb Emad — Sound Engineer"
         style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          objectPosition: 'center top',
-          display: 'block',
+          position: 'absolute', inset: 0, width: '100%', height: '100%',
+          objectFit: 'cover', objectPosition: 'center top', display: 'block',
         }}
       />
-
-      {/* Overlay gradients */}
       <div aria-hidden="true" style={{
         position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
         background: 'linear-gradient(to top, var(--void) 0%, rgba(2,2,2,0.18) 45%, rgba(2,2,2,0.04) 100%)',
@@ -71,8 +53,6 @@ function Portrait() {
         position: 'absolute', inset: 0, zIndex: 2, pointerEvents: 'none',
         background: 'linear-gradient(to right, rgba(2,2,2,0.5) 0%, transparent 35%, transparent 65%, rgba(2,2,2,0.35) 100%)',
       }} />
-
-      {/* SVG HUD layer */}
       <svg
         viewBox="0 0 460 612"
         xmlns="http://www.w3.org/2000/svg"
@@ -108,14 +88,11 @@ function FloatingEQCard() {
       transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
       aria-hidden="true"
       style={{
-        position: 'absolute',
-        bottom: -24, left: -32,
-        zIndex: 12,
+        position: 'absolute', bottom: -24, left: -32, zIndex: 12,
         background: 'var(--surface)',
         border: '1px solid rgba(32,0,234,0.3)',
         backdropFilter: 'blur(20px)',
-        borderRadius: 4,
-        padding: '12px 16px',
+        borderRadius: 4, padding: '12px 16px',
         display: 'flex', flexDirection: 'column', gap: 8,
         boxShadow: '0 20px 60px rgba(0,0,0,0.25), 0 0 20px rgba(32,0,234,0.12)',
       }}
@@ -129,8 +106,7 @@ function FloatingEQCard() {
             key={i}
             className="eq-bar"
             style={{
-              width: 5, height: h,
-              borderRadius: '1px 1px 0 0',
+              width: 5, height: h, borderRadius: '1px 1px 0 0',
               background: 'linear-gradient(to top, var(--blue), var(--lav))',
               animationDuration: `${0.6 + i * 0.1}s`,
               animationDelay: `${i * 0.06}s`,
@@ -149,14 +125,11 @@ function FloatingDBCard() {
       transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
       aria-hidden="true"
       style={{
-        position: 'absolute',
-        top: -20, right: -28,
-        zIndex: 12,
+        position: 'absolute', top: -20, right: -28, zIndex: 12,
         background: 'var(--surface)',
         border: '1px solid rgba(158,146,231,0.25)',
         backdropFilter: 'blur(20px)',
-        borderRadius: 4,
-        padding: '10px 14px',
+        borderRadius: 4, padding: '10px 14px',
         boxShadow: '0 20px 60px rgba(0,0,0,0.25)',
       }}
     >
@@ -182,14 +155,9 @@ const ITEM_VARIANTS = {
 export default function Hero() {
   const ref = useRef(null)
   const scrollTo = useScrollTo()
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  })
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] })
   const yLeft  = useTransform(scrollYProgress, [0, 1], [0, -80])
   const yRight = useTransform(scrollYProgress, [0, 1], [0, -40])
-
-  // ✅ مش بيختفي — بس بيعمل fade خفيف جداً في آخر الـ scroll
   const opacity = useTransform(scrollYProgress, [0, 0.95], [1, 0.15])
 
   return (
@@ -208,7 +176,6 @@ export default function Hero() {
         gap: 'clamp(40px, 5vw, 80px)',
         zIndex: 10,
       }}
-      className="max-md:grid-cols-1 max-md:pb-24"
     >
       {/* Grid overlay */}
       <div aria-hidden="true" style={{
@@ -218,15 +185,16 @@ export default function Hero() {
         pointerEvents: 'none',
       }} />
 
-      {/* ── Left column ── */}
+      {/* ── Left column: TEXT ── */}
       <motion.div
+        className="hero-text-col"
         style={{ y: yLeft, opacity, position: 'relative', zIndex: 10 }}
         variants={CONTAINER_VARIANTS}
         initial="hidden"
         animate="visible"
       >
         {/* Availability badge */}
-        <motion.div variants={ITEM_VARIANTS}>
+        <motion.div variants={ITEM_VARIANTS} className="hero-badge">
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
             padding: '7px 18px', borderRadius: 40,
@@ -283,7 +251,7 @@ export default function Hero() {
           </span>
         </motion.h1>
 
-        {/* Divider line */}
+        {/* Divider */}
         <motion.div variants={ITEM_VARIANTS} style={{
           display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24,
         }}>
@@ -311,9 +279,11 @@ export default function Hero() {
         </motion.p>
 
         {/* CTA buttons */}
-        <motion.div variants={ITEM_VARIANTS} style={{
-          display: 'flex', flexWrap: 'wrap', gap: 14, marginBottom: 56,
-        }}>
+        <motion.div
+          variants={ITEM_VARIANTS}
+          className="hero-ctas"
+          style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginBottom: 56 }}
+        >
           <button
             className="btn-primary"
             onClick={() => scrollTo('projects')}
@@ -325,10 +295,9 @@ export default function Hero() {
             View My Work
           </button>
 
-          {/* ✅ Contact Me — مربوط صح بالـ scrollTo */}
           <button
             className="btn-outline"
-            onClick={() => scrollTo('Contact')}
+            onClick={() => scrollTo('contact')}
             aria-label="Contact Moheb Emad"
           >
             Contact Me
@@ -336,10 +305,14 @@ export default function Hero() {
         </motion.div>
 
         {/* Stats */}
-        <motion.div variants={ITEM_VARIANTS} style={{
-          display: 'flex', gap: 40, paddingTop: 32,
-          borderTop: '1px solid var(--border)',
-        }}>
+        <motion.div
+          variants={ITEM_VARIANTS}
+          className="hero-stats"
+          style={{
+            display: 'flex', gap: 40, paddingTop: 32,
+            borderTop: '1px solid var(--border)',
+          }}
+        >
           {[
             { n: '6+',   l: 'Years'     },
             { n: '500+', l: 'Projects'  },
@@ -363,8 +336,9 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* ── Right column: portrait ── */}
+      {/* ── Right column: PORTRAIT ── */}
       <motion.div
+        className="hero-portrait-col"
         style={{
           y: yRight,
           position: 'relative',
@@ -425,8 +399,7 @@ export default function Hero() {
 
           {/* Portrait frame */}
           <div style={{
-            position: 'absolute', inset: 0,
-            borderRadius: 4, overflow: 'hidden',
+            position: 'absolute', inset: 0, borderRadius: 4, overflow: 'hidden',
             border: '1px solid rgba(32,0,234,0.3)',
             boxShadow: '0 0 60px rgba(32,0,234,0.18), inset 0 0 40px rgba(2,2,2,0.7)',
           }}>
@@ -456,6 +429,7 @@ export default function Hero() {
 
       {/* Scroll hint */}
       <motion.div
+        className="hero-scroll-hint"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
@@ -473,13 +447,11 @@ export default function Hero() {
           SCROLL
         </span>
         <div style={{
-          width: 1, height: 40,
-          background: 'var(--border)',
+          width: 1, height: 40, background: 'var(--border)',
           position: 'relative', overflow: 'hidden',
         }}>
           <div style={{
-            position: 'absolute', top: 0, left: 0,
-            width: '100%', height: '50%',
+            position: 'absolute', top: 0, left: 0, width: '100%', height: '50%',
             background: 'linear-gradient(to bottom, var(--blue), transparent)',
             animation: 'scroll-flow 1.8s ease-in-out infinite',
           }} />

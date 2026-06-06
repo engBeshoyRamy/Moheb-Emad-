@@ -1,19 +1,16 @@
 import { motion } from 'framer-motion'
 import AnimatedSection from './AnimatedSection'
 
-/* ─── EQ Display ─────────────────────────────── */
 function EQDisplay() {
   const heights = [28, 50, 75, 100, 88, 68, 82, 55, 40, 65, 80, 92, 70, 46, 32]
   return (
-    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 56, marginBottom: 24 }}>
+    <div className="studio-eq-display" style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 56, marginBottom: 24 }}>
       {heights.map((h, i) => (
         <div
           key={i}
           className="eq-bar"
           style={{
-            flex: 1,
-            height: `${h}%`,
-            borderRadius: '2px 2px 0 0',
+            flex: 1, height: `${h}%`, borderRadius: '2px 2px 0 0',
             background: i % 2
               ? 'linear-gradient(to top, var(--lav), rgba(158,146,231,0.2))'
               : 'linear-gradient(to top, var(--blue), rgba(32,0,234,0.2))',
@@ -26,7 +23,6 @@ function EQDisplay() {
   )
 }
 
-/* ─── Specs ──────────────────────────────────── */
 const SPECS = [
   { k: 'Role',           v: 'Sound Engineer',    accent: false },
   { k: 'Specialization', v: 'Film & Game Audio',  accent: false },
@@ -36,20 +32,18 @@ const SPECS = [
 ]
 
 const META = [
-  { label: 'Education', val: 'Bachelor`s of Sound Engineering , The institute of cinema' },
+  { label: 'Education', val: 'Bachelor\u2019s of Sound Engineering, The institute of cinema' },
   { label: 'Focus',     val: 'Film & Game Audio' },
   { label: 'Location',  val: 'Egypt' },
   { label: 'Languages', val: 'Arabic, English' },
 ]
 
-/* ─── Main export ────────────────────────────── */
 export default function About() {
   return (
     <section
       id="about"
       style={{ padding: 'clamp(80px, 10vw, 140px) 0', position: 'relative', zIndex: 10 }}
     >
-      {/* Top divider */}
       <div style={{
         position: 'absolute', top: 0, left: 0, right: 0, height: 1,
         background: 'linear-gradient(90deg, transparent, var(--blue), transparent)',
@@ -57,7 +51,6 @@ export default function About() {
 
       <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 clamp(20px, 5vw, 64px)' }}>
 
-        {/* ── Section label ── */}
         <AnimatedSection>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 64 }}>
             <div style={{ width: 28, height: 1, background: 'var(--blue)', flexShrink: 0 }} />
@@ -82,15 +75,11 @@ export default function About() {
           </div>
         </AnimatedSection>
 
-        {/* ══════════════════════════════════════════
-            MAIN LAYOUT — 2 columns: Left photo | Right content
-        ══════════════════════════════════════════ */}
+        {/* MAIN GRID */}
         <div className="about-grid">
 
-          {/* ── LEFT: Photo + Studio Card stacked ── */}
+          {/* LEFT: Photo */}
           <div className="about-left">
-
-            {/* Photo */}
             <AnimatedSection>
               <motion.div
                 initial={{ opacity: 0, x: -32 }}
@@ -99,90 +88,65 @@ export default function About() {
                 transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
                 style={{ position: 'relative' }}
               >
-                {/* Glow behind photo */}
                 <div aria-hidden="true" style={{
-                  position: 'absolute',
-                  inset: -1,
-                  borderRadius: 6,
+                  position: 'absolute', inset: -1, borderRadius: 6,
                   background: 'linear-gradient(135deg, rgba(32,0,234,0.6) 0%, rgba(158,146,231,0.3) 50%, transparent 100%)',
                   zIndex: 0,
                 }} />
 
-                {/* Photo frame */}
-                <div style={{
-                  position: 'relative',
-                  zIndex: 1,
-                  borderRadius: 5,
-                  overflow: 'hidden',
-                  aspectRatio: '4/5',
-                  background: '#06060e',
-                  boxShadow: '0 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(32,0,234,0.2)',
-                }}>
+                <div
+                  className="about-photo-frame"
+                  style={{
+                    position: 'relative', zIndex: 1, borderRadius: 5,
+                    overflow: 'hidden', aspectRatio: '4/5',
+                    background: '#06060e',
+                    boxShadow: '0 32px 80px rgba(0,0,0,0.7), 0 0 60px rgba(32,0,234,0.2)',
+                  }}
+                >
                   <img
                     src="/moheb.jpg"
                     alt="Moheb Emad — Sound Engineer"
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      objectPosition: 'top center',
-                      display: 'block',
+                      width: '100%', height: '100%',
+                      objectFit: 'cover', objectPosition: 'top center', display: 'block',
                       filter: 'brightness(0.9) contrast(1.08) saturate(0.9)',
                     }}
                   />
-
-                  {/* Cinematic bottom fade */}
                   <div aria-hidden="true" style={{
                     position: 'absolute', inset: 0,
                     background: 'linear-gradient(180deg, transparent 50%, rgba(2,2,2,0.85) 100%)',
                     pointerEvents: 'none',
                   }} />
-
-                  {/* Left blue rim light */}
                   <div aria-hidden="true" style={{
                     position: 'absolute', inset: 0,
                     background: 'linear-gradient(90deg, rgba(32,0,234,0.15) 0%, transparent 35%)',
                     pointerEvents: 'none',
                   }} />
-
-                  {/* Scan lines subtle */}
                   <div aria-hidden="true" style={{
                     position: 'absolute', inset: 0,
                     backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.03) 3px, rgba(0,0,0,0.03) 4px)',
                     pointerEvents: 'none',
                   }} />
-
-                  {/* Corner brackets */}
                   <svg aria-hidden="true" style={{
-                    position: 'absolute', inset: 0,
-                    width: '100%', height: '100%', pointerEvents: 'none',
+                    position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none',
                   }} viewBox="0 0 100 100" preserveAspectRatio="none">
                     <path d="M3,3 L3,10 M3,3 L10,3"      stroke="rgba(32,0,234,0.7)" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke" />
                     <path d="M97,3 L97,10 M97,3 L90,3"    stroke="rgba(32,0,234,0.7)" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke" />
                     <path d="M3,97 L3,90 M3,97 L10,97"    stroke="rgba(32,0,234,0.7)" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke" />
                     <path d="M97,97 L97,90 M97,97 L90,97" stroke="rgba(32,0,234,0.7)" strokeWidth="0.5" fill="none" vectorEffect="non-scaling-stroke" />
                   </svg>
-
-                  {/* HUD top-left label */}
                   <div aria-hidden="true" style={{
                     position: 'absolute', top: 12, left: 14,
                     fontFamily: 'var(--ff-mono)', fontSize: '0.46rem',
                     letterSpacing: '0.2em', color: 'rgba(32,0,234,0.7)',
                     textTransform: 'uppercase',
                   }}>MOHEB.EMAD</div>
-
-                  {/* Bottom name bar */}
                   <div style={{
-                    position: 'absolute', bottom: 0, left: 0, right: 0,
-                    padding: '20px 20px 18px',
+                    position: 'absolute', bottom: 0, left: 0, right: 0, padding: '20px 20px 18px',
                   }}>
                     <div style={{
-                      fontFamily: 'var(--ff-disp)',
-                      fontSize: '1.4rem',
-                      letterSpacing: '0.08em',
-                      color: 'var(--white)',
-                      lineHeight: 1,
-                      marginBottom: 6,
+                      fontFamily: 'var(--ff-disp)', fontSize: '1.4rem',
+                      letterSpacing: '0.08em', color: 'var(--white)', lineHeight: 1, marginBottom: 6,
                     }}>MOHEB EMAD</div>
                     <div style={{
                       fontFamily: 'var(--ff-mono)', fontSize: '0.52rem',
@@ -191,46 +155,38 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* Floating SOUND ENGINEER tag */}
+                {/* Floating tag — hidden on mobile via CSS */}
                 <motion.div
+                  className="about-float-tag"
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                   aria-hidden="true"
                   style={{
-                    position: 'absolute',
-                    top: 24,
-                    right: -18,
+                    position: 'absolute', top: 24, right: -18,
                     background: 'rgba(2,2,2,0.9)',
                     border: '1px solid rgba(32,0,234,0.5)',
-                    padding: '8px 14px',
-                    borderRadius: 3,
-                    fontFamily: 'var(--ff-mono)',
-                    fontSize: '0.5rem',
-                    letterSpacing: '0.2em',
-                    color: 'var(--lav)',
+                    padding: '8px 14px', borderRadius: 3,
+                    fontFamily: 'var(--ff-mono)', fontSize: '0.5rem',
+                    letterSpacing: '0.2em', color: 'var(--lav)',
                     backdropFilter: 'blur(12px)',
                     boxShadow: '0 0 20px rgba(32,0,234,0.25)',
-                    zIndex: 3,
-                    whiteSpace: 'nowrap',
+                    zIndex: 3, whiteSpace: 'nowrap',
                   }}
                 >
                   ◈ AUDIO DESIGNER
                 </motion.div>
               </motion.div>
             </AnimatedSection>
-
           </div>
 
-          {/* ── RIGHT: Heading + Bio + Card + Meta ── */}
+          {/* RIGHT: Content */}
           <div className="about-right">
 
-            {/* Heading */}
             <AnimatedSection delay={0.1}>
               <h2 style={{
                 fontFamily: 'var(--ff-disp)',
                 fontSize: 'clamp(2.8rem, 5vw, 5.5rem)',
-                lineHeight: 0.88,
-                color: 'var(--white)',
+                lineHeight: 0.88, color: 'var(--white)',
                 marginBottom: 'clamp(20px, 3vw, 36px)',
                 letterSpacing: '0.02em',
               }}>
@@ -239,15 +195,11 @@ export default function About() {
               </h2>
             </AnimatedSection>
 
-            {/* Bio — short */}
             <AnimatedSection delay={0.18}>
               <div style={{ marginBottom: 36 }}>
-                <p style={{
-                  fontSize: '0.95rem', lineHeight: 1.9,
-                  color: 'var(--gray)', marginBottom: 14,
-                }}>
+                <p style={{ fontSize: '0.95rem', lineHeight: 1.9, color: 'var(--gray)', marginBottom: 14 }}>
                   Sound Engineer &amp; Audio Designer with a background in media production
-                  and a deep focus on game audio and filmmaking. Graduate of the high institute of cinema,Sound Engineering department —
+                  and a deep focus on game audio and filmmaking. Graduate of the high institute of cinema, Sound Engineering department —
                   where technical precision meets creative sound.
                 </p>
                 <p style={{ fontSize: '0.95rem', lineHeight: 1.9, color: 'var(--gray)' }}>
@@ -257,18 +209,15 @@ export default function About() {
               </div>
             </AnimatedSection>
 
-            {/* Studio card — horizontal */}
+            {/* Studio card */}
             <AnimatedSection delay={0.26}>
               <div style={{
                 background: 'rgba(32,0,234,0.04)',
                 border: '1px solid rgba(32,0,234,0.28)',
                 borderRadius: 4,
                 padding: 'clamp(20px, 2.5vw, 28px)',
-                position: 'relative',
-                overflow: 'hidden',
-                marginBottom: 32,
+                position: 'relative', overflow: 'hidden', marginBottom: 32,
               }}>
-                {/* Top accent */}
                 <div style={{
                   position: 'absolute', top: 0, left: 0, right: 0, height: 1,
                   background: 'linear-gradient(90deg, transparent, var(--blue) 40%, var(--lav) 60%, transparent)',
@@ -279,7 +228,7 @@ export default function About() {
                   pointerEvents: 'none',
                 }} />
 
-                {/* Card header row */}
+                {/* Card header */}
                 <div style={{
                   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                   marginBottom: 18, paddingBottom: 14, borderBottom: '1px solid var(--border)',
@@ -289,7 +238,6 @@ export default function About() {
                     letterSpacing: '0.28em', color: 'var(--blue)', textTransform: 'uppercase',
                   }}>AUDIO PROFILE</span>
 
-                  {/* LIVE badge */}
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: 7,
                     padding: '4px 12px', borderRadius: 20,
@@ -309,15 +257,14 @@ export default function About() {
                   </div>
                 </div>
 
-                {/* EQ + Specs side by side */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'start' }}>
+                {/* EQ + Specs */}
+                <div className="studio-card-inner" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, alignItems: 'start' }}>
                   <EQDisplay />
                   <div>
                     {SPECS.map((item) => (
                       <div key={item.k} style={{
                         display: 'flex', justifyContent: 'space-between',
-                        padding: '7px 0', borderBottom: '1px solid rgba(255,248,248,0.04)',
-                        gap: 8,
+                        padding: '7px 0', borderBottom: '1px solid rgba(255,248,248,0.04)', gap: 8,
                       }}>
                         <span style={{
                           fontFamily: 'var(--ff-mono)', fontSize: '0.54rem',
@@ -335,8 +282,7 @@ export default function About() {
                               width: 5, height: 5, borderRadius: '50%',
                               background: '#4ade80', display: 'inline-block',
                               boxShadow: '0 0 6px #4ade80',
-                              animation: 'ping-slow 2s ease-out infinite',
-                              flexShrink: 0,
+                              animation: 'ping-slow 2s ease-out infinite', flexShrink: 0,
                             }} />
                           )}
                         </span>
@@ -349,10 +295,13 @@ export default function About() {
 
             {/* Meta grid */}
             <AnimatedSection delay={0.34}>
-              <div style={{
-                display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px 28px',
-                paddingTop: 24, borderTop: '1px solid var(--border)',
-              }}>
+              <div
+                className="about-meta-grid"
+                style={{
+                  display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '18px 28px',
+                  paddingTop: 24, borderTop: '1px solid var(--border)',
+                }}
+              >
                 {META.map((item) => (
                   <div key={item.label}>
                     <div style={{
@@ -372,26 +321,6 @@ export default function About() {
           </div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes ping-slow {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
-          60%       { box-shadow: 0 0 0 6px rgba(74,222,128,0); }
-        }
-
-        .about-grid {
-          display: grid;
-          grid-template-columns: 0.85fr 1.15fr;
-          gap: clamp(40px, 6vw, 88px);
-          align-items: start;
-        }
-        .about-left { position: sticky; top: 100px; }
-
-        @media (max-width: 900px) {
-          .about-grid { grid-template-columns: 1fr; }
-          .about-left { position: static; }
-        }
-      `}</style>
     </section>
   )
 }

@@ -8,8 +8,8 @@ const EXPERIENCES = [
     period: '2021 — Present',
     badge: 'FULL-TIME',
     primary: true,
-    desc: 'Leading audio post-production for TV drama series. Full pipeline ownership from raw audio to broadcast-ready final mix delivery,Surround sound mixing, and music integration for Cinema and TV.',
-    chips: ['Audio Editing', 'Dialogue Mixing', 'Sound Design', '5.1 Mix', 'Music Integration'],
+    desc: 'Leading audio post-production for TV drama series. Full pipeline ownership from raw audio to broadcast-ready final mix delivery, Surround sound mixing, and music integration for Cinema and TV.',
+    chips: ['Audio Editing','Dialogue Mixing','Sound Design','5.1 Mix','Music Integration'],
   },
   {
     role: 'Post-Production Audio Engineer',
@@ -18,7 +18,7 @@ const EXPERIENCES = [
     badge: 'FREELANCE',
     primary: false,
     desc: 'Post-production audio for short films, commercials, and digital content. Specializing in dialogue editing, SFX layering, and final mix.',
-    chips: ['Dialogue Editing', 'SFX Design', 'Foley Recording', 'Surround Mixing'],
+    chips: ['Dialogue Editing','SFX Design','Foley Recording','Surround Mixing'],
   },
   {
     role: 'Game Audio Developer',
@@ -27,7 +27,7 @@ const EXPERIENCES = [
     badge: 'PERSONAL',
     primary: false,
     desc: 'Interactive audio design in Wwise and Unreal Engine 5. Building game audio prototypes and adaptive music systems.',
-    chips: ['Wwise', 'Unreal Engine 5', 'Adaptive Music', 'Real-time Audio'],
+    chips: ['Wwise','Unreal Engine 5','Adaptive Music','Real-time Audio'],
   },
 ]
 
@@ -57,7 +57,10 @@ function ExpCard({ exp, index }) {
           <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '0.58rem', letterSpacing: '0.15em', color: 'var(--gray)' }}>
             {exp.period}
           </span>
-          <span style={{ padding: '3px 10px', border: '1px solid rgba(32,0,234,0.35)', borderRadius: 2, fontFamily: 'var(--ff-mono)', fontSize: '0.5rem', letterSpacing: '0.15em', color: 'var(--blue)' }}>
+          <span style={{
+            padding: '3px 10px', border: '1px solid rgba(32,0,234,0.35)', borderRadius: 2,
+            fontFamily: 'var(--ff-mono)', fontSize: '0.5rem', letterSpacing: '0.15em', color: 'var(--blue)',
+          }}>
             {exp.badge}
           </span>
         </div>
@@ -66,7 +69,10 @@ function ExpCard({ exp, index }) {
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
           {exp.chips.map((chip) => (
-            <span key={chip} style={{ padding: '4px 10px', background: 'rgba(255,248,248,0.04)', borderRadius: 2, fontFamily: 'var(--ff-mono)', fontSize: '0.52rem', color: 'var(--gray)', letterSpacing: '0.1em' }}>
+            <span key={chip} style={{
+              padding: '4px 10px', background: 'rgba(255,248,248,0.04)', borderRadius: 2,
+              fontFamily: 'var(--ff-mono)', fontSize: '0.52rem', color: 'var(--gray)', letterSpacing: '0.1em',
+            }}>
               {chip}
             </span>
           ))}
@@ -80,6 +86,7 @@ export default function Experience() {
   return (
     <section id="experience" style={{ padding: 'clamp(80px, 10vw, 140px) 0', position: 'relative', zIndex: 10 }}>
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, var(--blue), transparent)' }} />
+
       <div style={{ maxWidth: 1300, margin: '0 auto', padding: '0 clamp(20px, 5vw, 64px)' }}>
 
         <AnimatedSection>
@@ -92,30 +99,44 @@ export default function Experience() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.1}>
-          <h2 style={{ fontFamily: 'var(--ff-disp)', fontSize: 'clamp(3rem, 5.5vw, 5.5rem)', lineHeight: 0.9, color: 'var(--white)', marginBottom: 'clamp(52px, 7vw, 88px)' }}>
-            EXPERIENCE &<br />
+          <h2 style={{
+            fontFamily: 'var(--ff-disp)',
+            fontSize: 'clamp(3rem, 5.5vw, 5.5rem)',
+            lineHeight: 0.9, color: 'var(--white)',
+            marginBottom: 'clamp(52px, 7vw, 88px)',
+          }}>
+            EXPERIENCE &amp;<br />
             <span style={{ color: 'var(--lav)' }}>TIMELINE</span>
           </h2>
         </AnimatedSection>
 
         <div style={{ position: 'relative' }}>
+          {/* Center timeline line — hidden on mobile via className */}
           <div
             aria-hidden="true"
-            className="hidden md:block"
-            style={{ position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1, background: 'linear-gradient(to bottom, var(--blue), rgba(32,0,234,0.05))' }}
+            className="timeline-line hidden md:block"
+            style={{
+              position: 'absolute', left: '50%', top: 0, bottom: 0, width: 1,
+              background: 'linear-gradient(to bottom, var(--blue), rgba(32,0,234,0.05))',
+            }}
           />
 
           {EXPERIENCES.map((exp, i) => (
             <div
               key={exp.role}
-              style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, marginBottom: 52, position: 'relative' }}
-              className="max-md:grid-cols-1 max-md:gap-4"
+              className="exp-row"
+              style={{
+                display: 'grid', gridTemplateColumns: '1fr 1fr',
+                gap: 72, marginBottom: 52, position: 'relative',
+              }}
             >
+              {/* Timeline dot — hidden on mobile */}
               <motion.div
                 aria-hidden="true"
-                className="hidden md:block"
+                className="timeline-dot hidden md:block"
                 style={{
-                  position: 'absolute', top: 26, left: '50%', transform: 'translateX(-50%)',
+                  position: 'absolute', top: 26, left: '50%',
+                  transform: 'translateX(-50%)',
                   width: 13, height: 13, borderRadius: '50%',
                   border: '2px solid var(--blue)',
                   background: exp.primary ? 'var(--blue)' : 'var(--void)',
@@ -130,11 +151,13 @@ export default function Experience() {
               {i % 2 === 0 ? (
                 <>
                   <ExpCard exp={exp} index={i} />
-                  <div />
+                  {/* Spacer — hidden on mobile */}
+                  <div className="exp-spacer" />
                 </>
               ) : (
                 <>
-                  <div />
+                  {/* Spacer — hidden on mobile */}
+                  <div className="exp-spacer" />
                   <ExpCard exp={exp} index={i} />
                 </>
               )}

@@ -58,9 +58,7 @@ export default function Projects() {
               <span style={{
                 fontFamily: 'var(--ff-mono)', fontSize: '0.6rem',
                 letterSpacing: '0.28em', color: 'var(--blue)', textTransform: 'uppercase',
-              }}>
-                Portfolio
-              </span>
+              }}>Portfolio</span>
             </div>
           </AnimatedSection>
 
@@ -68,8 +66,7 @@ export default function Projects() {
             <h2 style={{
               fontFamily: 'var(--ff-disp)',
               fontSize: 'clamp(3rem, 5.5vw, 5.5rem)',
-              lineHeight: 0.9,
-              color: 'var(--white)',
+              lineHeight: 0.9, color: 'var(--white)',
               marginBottom: 'clamp(40px, 5vw, 60px)',
             }}>
               SELECTED<br />
@@ -77,8 +74,9 @@ export default function Projects() {
             </h2>
           </AnimatedSection>
 
+          {/* Filter bar */}
           <AnimatedSection delay={0.2}>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 48 }}>
+            <div className="filter-bar" style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 48 }}>
               {CATEGORIES.map((cat) => (
                 <motion.button
                   key={cat}
@@ -90,7 +88,7 @@ export default function Projects() {
                     background: activeCategory === cat ? 'rgba(32,0,234,0.18)' : 'none',
                     border: `1px solid ${activeCategory === cat ? 'var(--blue)' : 'rgba(255,248,248,0.07)'}`,
                     color: activeCategory === cat ? 'var(--lav)' : 'var(--gray)',
-                    cursor: 'none',
+                    cursor: 'pointer',
                   }}
                   whileHover={{ borderColor: 'rgba(32,0,234,0.4)', color: 'var(--lav)' }}
                   whileTap={{ scale: 0.96 }}
@@ -102,10 +100,11 @@ export default function Projects() {
             </div>
           </AnimatedSection>
 
+          {/* Projects grid */}
           <motion.div
             layout
+            className="projects-grid"
             style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 22 }}
-            className="max-lg:grid-cols-2 max-md:grid-cols-1"
           >
             <AnimatePresence mode="popLayout">
               {visible.map((project, i) => (
@@ -124,6 +123,7 @@ export default function Projects() {
             <AnimatedSection delay={0.25}>
               <div style={{ textAlign: 'center', marginTop: 40 }}>
                 <motion.button
+                  className="see-more-btn"
                   onClick={() => setShowAll((prev) => !prev)}
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -132,8 +132,7 @@ export default function Projects() {
                     letterSpacing: '0.18em', textTransform: 'uppercase',
                     background: 'rgba(32,0,234,0.08)',
                     border: '1px solid rgba(32,0,234,0.35)',
-                    color: 'var(--lav)',
-                    cursor: 'none',
+                    color: 'var(--lav)', cursor: 'pointer',
                     position: 'relative', overflow: 'hidden',
                   }}
                   whileHover={{
@@ -157,9 +156,8 @@ export default function Projects() {
                       <span style={{
                         display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
                         width: 20, height: 20, borderRadius: '50%',
-                        background: 'rgba(32,0,234,0.25)',
-                        fontSize: '0.55rem', color: 'var(--blue)',
-                        fontFamily: 'var(--ff-mono)',
+                        background: 'rgba(32,0,234,0.25)', fontSize: '0.55rem',
+                        color: 'var(--blue)', fontFamily: 'var(--ff-mono)',
                       }}>
                         +{filtered.length - INITIAL_VISIBLE}
                       </span>
