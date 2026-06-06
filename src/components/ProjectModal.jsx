@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-// ─── Deterministic waveform bars ────────────────────────────────────────────
 function generateWaveformBars(seed, count) {
   return Array.from({ length: count }, (_, i) => ({
     h: Math.max(8, 100 * Math.abs(
@@ -19,7 +18,6 @@ function generateVUHeights(seed) {
   ))
 }
 
-// ─── Mini AudioPlayer inside Modal ──────────────────────────────────────────
 function ModalAudioPlayer({ project }) {
   const audioRef = useRef(null)
   const intervalRef = useRef(null)
@@ -100,7 +98,6 @@ function ModalAudioPlayer({ project }) {
       padding: '20px 22px',
       marginTop: 28,
     }}>
-      {/* DAW header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{
@@ -114,15 +111,14 @@ function ModalAudioPlayer({ project }) {
           </span>
         </div>
         <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '0.5rem', color: 'var(--gray)', letterSpacing: '0.12em', opacity: 0.5 }}>
-          44.1kHz · 24-bit · Stereo
+          44.1kHz · 24-bit
         </span>
       </div>
 
-      {/* Waveform scrubber */}
       <div
         onClick={seek}
         style={{
-          position: 'relative', height: 64, cursor: 'none',
+          position: 'relative', height: 64, cursor: 'pointer',
           display: 'flex', alignItems: 'center', gap: 1.5,
           marginBottom: 12, userSelect: 'none',
         }}
@@ -145,8 +141,6 @@ function ModalAudioPlayer({ project }) {
             />
           )
         })}
-
-        {/* Playhead */}
         <div style={{
           position: 'absolute', top: 0, bottom: 0,
           left: `${progress * 100}%`,
@@ -157,24 +151,21 @@ function ModalAudioPlayer({ project }) {
         }} />
       </div>
 
-      {/* Time + controls */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '0.52rem', color: 'var(--gray)', letterSpacing: '0.1em' }}>
           {fmt(currentTime)} / {isLoaded ? fmt(duration) : '--:--'}
         </span>
-
         <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <button
             onClick={() => setIsLooping(l => !l)}
             style={{
-              background: 'none', border: 'none', cursor: 'none',
+              background: 'none', border: 'none', cursor: 'pointer',
               color: isLooping ? 'var(--lav)' : 'var(--gray)',
               fontSize: '0.7rem', padding: 4,
               transition: 'color 0.2s',
             }}
             aria-label="Toggle loop"
           >⟳</button>
-
           <motion.button
             onClick={togglePlay}
             style={{
@@ -184,7 +175,7 @@ function ModalAudioPlayer({ project }) {
                 : 'rgba(32,0,234,0.15)',
               border: '1px solid rgba(32,0,234,0.5)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              cursor: 'none', color: '#fff', fontSize: '0.85rem',
+              cursor: 'pointer', color: '#fff', fontSize: '0.85rem',
             }}
             whileHover={{ scale: 1.08, boxShadow: '0 0 20px rgba(32,0,234,0.5)' }}
             whileTap={{ scale: 0.94 }}
@@ -194,7 +185,6 @@ function ModalAudioPlayer({ project }) {
         </div>
       </div>
 
-      {/* VU Meters */}
       <AnimatePresence>
         {isPlaying && (
           <motion.div
@@ -214,8 +204,7 @@ function ModalAudioPlayer({ project }) {
                     style={{
                       flex: 1, borderRadius: 1,
                       height: `${Math.min(100, animated)}%`,
-                      background: color,
-                      opacity: 0.75,
+                      background: color, opacity: 0.75,
                       transition: 'height 0.1s ease, background 0.1s',
                     }}
                   />
@@ -236,7 +225,6 @@ function ModalAudioPlayer({ project }) {
   )
 }
 
-// ─── Large waveform visual ───────────────────────────────────────────────────
 function ProjectWaveform({ project }) {
   const seed = project.id.charCodeAt(0) + project.id.charCodeAt(1)
   const colorMap = {
@@ -274,15 +262,11 @@ function ProjectWaveform({ project }) {
           <feGaussianBlur stdDeviation="2.5" />
         </filter>
       </defs>
-
-      {/* Glow layer */}
       <g mask={`url(#mwm-${project.id})`} filter={`url(#mwf-${project.id})`} opacity="0.4">
         {bars.map(({ h, x, fill }, i) => (
           <rect key={i} x={x - 1} y={60 - h / 2 - 4} width={12} height={h + 8} rx="3" fill={fill} opacity="0.6" />
         ))}
       </g>
-
-      {/* Main bars — mirrored */}
       <g mask={`url(#mwm-${project.id})`}>
         {bars.map(({ h, x, fill, opacity }, i) => (
           <g key={i}>
@@ -291,13 +275,11 @@ function ProjectWaveform({ project }) {
           </g>
         ))}
       </g>
-
       <line x1="0" y1="60" x2="860" y2="60" stroke="var(--border)" strokeWidth="1" />
     </svg>
   )
 }
 
-// ─── Category icon map ───────────────────────────────────────────────────────
 const CAT_ICON = {
   'TV / Drama':   '◈',
   'Podcast':      '◎',
@@ -305,7 +287,6 @@ const CAT_ICON = {
   'Game Audio':   '▸',
 }
 
-// ─── Main Modal Component ────────────────────────────────────────────────────
 export default function ProjectModal({ project, onClose, onNavigate, allProjects }) {
   const scrollRef = useRef(null)
   const hasAudio = !!project.audioUrl
@@ -318,13 +299,11 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
   const prevProject = currentIndex > 0 ? allProjects[currentIndex - 1] : null
   const nextProject = currentIndex < allProjects.length - 1 ? allProjects[currentIndex + 1] : null
 
-  // Lock body scroll
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  // Keyboard navigation
   useEffect(() => {
     const handler = (e) => {
       if (e.key === 'Escape') onClose()
@@ -335,7 +314,6 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
     return () => window.removeEventListener('keydown', handler)
   }, [onClose, onNavigate, prevProject, nextProject])
 
-  // Reset scroll on project change
   useEffect(() => {
     if (scrollRef.current) scrollRef.current.scrollTop = 0
   }, [project.id])
@@ -353,6 +331,29 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
 
   return (
     <>
+      <style>{`
+        @media (max-width: 768px) {
+          .modal-content-grid {
+            grid-template-columns: 1fr !important;
+          }
+          .modal-top-bar {
+            padding: 12px 16px 10px !important;
+          }
+          .modal-nav-btn span {
+            display: none;
+          }
+          .modal-scrollable {
+            padding: 20px 16px !important;
+          }
+          .modal-title {
+            font-size: clamp(2rem, 10vw, 3rem) !important;
+          }
+          .modal-meta-row {
+            gap: 10px 20px !important;
+          }
+        }
+      `}</style>
+
       {/* Backdrop */}
       <motion.div
         key="modal-backdrop"
@@ -390,18 +391,18 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
         }}
       >
         {/* Top bar */}
-        <div style={{
-          flexShrink: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '14px 28px 12px',
-          borderBottom: '1px solid var(--border)',
-          background: 'var(--surface2)',
-        }}>
+        <div
+          className="modal-top-bar"
+          style={{
+            flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '14px 28px 12px',
+            borderBottom: '1px solid var(--border)',
+            background: 'var(--surface2)',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{
-              width: 36, height: 3, borderRadius: 2,
-              background: 'var(--border)',
-            }} />
+            <div style={{ width: 36, height: 3, borderRadius: 2, background: 'var(--border)' }} />
             <span style={{
               fontFamily: 'var(--ff-mono)', fontSize: '0.52rem',
               letterSpacing: '0.22em', color: 'var(--gray)',
@@ -414,6 +415,7 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
             <motion.button
               onClick={() => prevProject && onNavigate(prevProject)}
               disabled={!prevProject}
+              className="modal-nav-btn"
               style={{
                 background: 'var(--card)',
                 border: '1px solid var(--border)',
@@ -421,17 +423,19 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
                 fontFamily: 'var(--ff-mono)', fontSize: '0.5rem',
                 letterSpacing: '0.12em',
                 color: prevProject ? 'var(--gray)' : 'var(--border)',
-                cursor: prevProject ? 'none' : 'default',
+                cursor: prevProject ? 'pointer' : 'default',
+                display: 'flex', alignItems: 'center', gap: 4,
               }}
               whileHover={prevProject ? { borderColor: 'rgba(32,0,234,0.4)', color: 'var(--lav)' } : {}}
               whileTap={prevProject ? { scale: 0.95 } : {}}
             >
-              ← PREV
+              ← <span>PREV</span>
             </motion.button>
 
             <motion.button
               onClick={() => nextProject && onNavigate(nextProject)}
               disabled={!nextProject}
+              className="modal-nav-btn"
               style={{
                 background: 'var(--card)',
                 border: '1px solid var(--border)',
@@ -439,12 +443,13 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
                 fontFamily: 'var(--ff-mono)', fontSize: '0.5rem',
                 letterSpacing: '0.12em',
                 color: nextProject ? 'var(--gray)' : 'var(--border)',
-                cursor: nextProject ? 'none' : 'default',
+                cursor: nextProject ? 'pointer' : 'default',
+                display: 'flex', alignItems: 'center', gap: 4,
               }}
               whileHover={nextProject ? { borderColor: 'rgba(32,0,234,0.4)', color: 'var(--lav)' } : {}}
               whileTap={nextProject ? { scale: 0.95 } : {}}
             >
-              NEXT →
+              <span>NEXT</span> →
             </motion.button>
 
             <motion.button
@@ -454,7 +459,7 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
                 background: 'var(--card)',
                 border: '1px solid var(--border)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--gray)', fontSize: '1rem', cursor: 'none',
+                color: 'var(--gray)', fontSize: '1rem', cursor: 'pointer',
                 marginLeft: 6,
               }}
               whileHover={{ background: 'rgba(220,40,40,0.15)', borderColor: 'rgba(220,40,40,0.4)', color: 'var(--white)' }}
@@ -469,6 +474,7 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
         {/* Scrollable content */}
         <div
           ref={scrollRef}
+          className="modal-scrollable"
           style={{
             flex: 1, overflowY: 'auto',
             padding: 'clamp(24px, 4vw, 52px) clamp(20px, 6vw, 80px)',
@@ -497,22 +503,30 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
             </motion.div>
 
             {/* Title */}
-            <motion.h1 variants={itemVariants} style={{
-              fontFamily: 'var(--ff-disp)',
-              fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
-              lineHeight: 0.92, letterSpacing: '0.02em',
-              color: 'var(--white)', marginBottom: 28,
-            }}>
+            <motion.h1
+              variants={itemVariants}
+              className="modal-title"
+              style={{
+                fontFamily: 'var(--ff-disp)',
+                fontSize: 'clamp(2.8rem, 6vw, 5.5rem)',
+                lineHeight: 0.92, letterSpacing: '0.02em',
+                color: 'var(--white)', marginBottom: 28,
+              }}
+            >
               {project.title}
             </motion.h1>
 
             {/* Meta row */}
-            <motion.div variants={itemVariants} style={{
-              display: 'flex', flexWrap: 'wrap', gap: '10px 32px',
-              marginBottom: 36,
-              paddingBottom: 28,
-              borderBottom: '1px solid var(--border)',
-            }}>
+            <motion.div
+              variants={itemVariants}
+              className="modal-meta-row"
+              style={{
+                display: 'flex', flexWrap: 'wrap', gap: '10px 32px',
+                marginBottom: 36,
+                paddingBottom: 28,
+                borderBottom: '1px solid var(--border)',
+              }}
+            >
               {[
                 { label: 'YEAR', val: project.year },
                 { label: 'FORMAT', val: project.duration },
@@ -539,14 +553,16 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
               <ProjectWaveform project={project} />
             </motion.div>
 
-            {/* Two-column layout */}
-            <motion.div variants={itemVariants} style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 260px',
-              gap: 40,
-              marginBottom: 32,
-            }}
-            className="max-md:grid-cols-1"
+            {/* Two-column layout — 1 col on mobile */}
+            <motion.div
+              variants={itemVariants}
+              className="modal-content-grid"
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 260px',
+                gap: 40,
+                marginBottom: 32,
+              }}
             >
               {/* Description */}
               <div>
@@ -597,7 +613,7 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
                       background: 'rgba(32,0,234,0.08)',
                       border: '1px solid rgba(32,0,234,0.25)',
                       borderRadius: 6, marginBottom: 12,
-                      textDecoration: 'none', cursor: 'none',
+                      textDecoration: 'none', cursor: 'pointer',
                     }}
                     whileHover={{
                       background: 'rgba(32,0,234,0.15)',
@@ -641,7 +657,6 @@ export default function ProjectModal({ project, onClose, onNavigate, allProjects
                   </div>
                 )}
 
-                {/* Project stats card */}
                 <div style={{
                   padding: '16px 18px',
                   background: 'var(--card)',
