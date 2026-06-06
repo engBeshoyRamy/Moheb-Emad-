@@ -192,6 +192,7 @@
   overflow: hidden;
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn-primary::before {
   content: '';
@@ -225,6 +226,7 @@
   overflow: hidden;
   transition: border-color 0.3s, color 0.3s, transform 0.25s var(--ease-out);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn-outline::after {
   content: '';
@@ -250,6 +252,7 @@
   transition: background 0.35s, border-color 0.35s, box-shadow 0.35s;
   flex-shrink: 0;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 .theme-toggle:hover { border-color: rgba(32,0,234,0.5); box-shadow: 0 0 12px rgba(32,0,234,0.2); }
 .theme-toggle__track {
@@ -340,12 +343,6 @@
 .about-left { position: sticky; top: 100px; }
 
 /* ═══════════════════════════════════════════
-   ██████╗ ███╗   ███╗ ██████╗ ██████╗ ██╗██╗     ███████╗
-   ██╔══██╗████╗ ████║██╔═══██╗██╔══██╗██║██║     ██╔════╝
-   ██║  ██║██╔████╔██║██║   ██║██████╔╝██║██║     █████╗
-   ██║  ██║██║╚██╔╝██║██║   ██║██╔══██╗██║██║     ██╔══╝
-   ██████╔╝██║ ╚═╝ ██║╚██████╔╝██████╔╝██║███████╗███████╗
-   ╚═════╝ ╚═╝     ╚═╝ ╚═════╝ ╚═════╝ ╚═╝╚══════╝╚══════╝
    MOBILE — max-width: 768px
 ═══════════════════════════════════════════ */
 @media (max-width: 768px) {
@@ -354,51 +351,83 @@
   #hero {
     display: flex !important;
     flex-direction: column !important;
-    padding: 88px 20px 60px !important;
+    /* More breathing room under navbar, less bottom padding */
+    padding: 90px 20px 48px !important;
     min-height: auto !important;
     gap: 0 !important;
   }
+  /* Hero mobile background portrait */
+  #hero .hero-mobile-bg {
+    display: block !important;
+  }
 
-  /* Portrait column — hidden on mobile */
+  /* Hero min-height on mobile — enough to show content comfortably */
+  #hero {
+    min-height: 100svh !important;
+  }
+
+  /* About photo — keep portrait ratio but center on face */
+  .about-photo-frame {
+    aspect-ratio: 3/4 !important;
+    max-height: 460px !important;
+  }
+
+  /* About photo img — center position shows face not body */
+  .about-photo-img {
+    object-position: center 15% !important;
+  }
+
+  /* Portrait — hidden on mobile */
   #hero .hero-portrait-col {
     display: none !important;
   }
 
-  /* Hero text column full width */
+  /* Text col full width */
   #hero .hero-text-col {
     width: 100% !important;
   }
 
-  /* Availability badge */
-  #hero .hero-badge {
-    margin-bottom: 24px !important;
+  /* Badge spacing tightened */
+  #hero .hero-badge > div {
+    margin-bottom: 20px !important;
   }
 
   /* Name size */
   #hero h1 {
-    font-size: clamp(4rem, 18vw, 6rem) !important;
-    margin-bottom: 20px !important;
+    font-size: clamp(3.8rem, 17vw, 5.5rem) !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* Bio text */
+  #hero p {
+    font-size: 0.9rem !important;
+    line-height: 1.7 !important;
+    margin-bottom: 32px !important;
   }
 
   /* CTA buttons — full width stacked */
   #hero .hero-ctas {
     flex-direction: column !important;
     gap: 12px !important;
-    margin-bottom: 36px !important;
+    margin-bottom: 32px !important;
   }
   #hero .hero-ctas .btn-primary,
   #hero .hero-ctas .btn-outline {
     width: 100% !important;
     justify-content: center !important;
+    padding: 16px 20px !important;
   }
 
-  /* Stats row */
+  /* Stats row — tighter gap, smaller numbers */
   #hero .hero-stats {
-    gap: 20px !important;
-    padding-top: 24px !important;
+    gap: 24px !important;
+    padding-top: 20px !important;
+  }
+  #hero .hero-stats > div > div:first-child {
+    font-size: 2rem !important;
   }
 
-  /* Scroll hint hidden on mobile */
+  /* Scroll hint hidden */
   #hero .hero-scroll-hint {
     display: none !important;
   }
@@ -406,18 +435,19 @@
   /* ── ABOUT ── */
   .about-grid {
     grid-template-columns: 1fr !important;
-    gap: 28px !important;
+    gap: 32px !important;
   }
   .about-left {
     position: static !important;
   }
 
-  /* About photo — cinematic 16:9 ratio on mobile */
+  /* About photo — taller crop on mobile so face is visible */
   .about-photo-frame {
-    aspect-ratio: 16/9 !important;
+    aspect-ratio: 3/4 !important;
+    max-height: 420px !important;
   }
 
-  /* Floating tag hidden on mobile */
+  /* Floating tag hidden */
   .about-float-tag {
     display: none !important;
   }
@@ -428,12 +458,12 @@
     gap: 16px !important;
   }
 
-  /* EQ display hidden on mobile to save space */
+  /* EQ display hidden */
   .studio-eq-display {
     display: none !important;
   }
 
-  /* Meta grid 1 col on mobile */
+  /* Meta grid 1 col */
   .about-meta-grid {
     grid-template-columns: 1fr !important;
     gap: 14px !important;
@@ -443,30 +473,23 @@
   #skills .skills-grid {
     grid-template-columns: 1fr !important;
   }
-
-  /* Stats strip wraps nicely */
   #skills .stats-strip {
     gap: 24px !important;
     justify-content: center !important;
   }
 
   /* ── EXPERIENCE ── */
-  /* Timeline center line hidden */
   #experience .timeline-line {
     display: none !important;
   }
   #experience .timeline-dot {
     display: none !important;
   }
-
-  /* Each exp row — single column */
   #experience .exp-row {
     grid-template-columns: 1fr !important;
     gap: 0 !important;
     margin-bottom: 20px !important;
   }
-
-  /* Empty placeholder div hidden */
   #experience .exp-spacer {
     display: none !important;
   }
@@ -475,8 +498,6 @@
   #projects .projects-grid {
     grid-template-columns: 1fr !important;
   }
-
-  /* Filter buttons wrap */
   #projects .filter-bar {
     gap: 8px !important;
     flex-wrap: wrap !important;
@@ -486,8 +507,6 @@
     font-size: 0.55rem !important;
     padding: 7px 14px !important;
   }
-
-  /* See More button */
   #projects .see-more-btn {
     cursor: auto !important;
   }
@@ -497,22 +516,18 @@
     grid-template-columns: 1fr !important;
     gap: 24px !important;
   }
-
-  /* Contact heading smaller */
   #contact h2 {
     font-size: clamp(1.8rem, 8vw, 2.6rem) !important;
     line-height: 1 !important;
   }
-
-  /* Form name+email — stack on mobile */
   #contact .form-row {
     grid-template-columns: 1fr !important;
     gap: 0 !important;
   }
 
-  /* ── GLOBAL SECTION HEADINGS ── */
+  /* ── GLOBAL HEADINGS ── */
   section h2 {
-    font-size: clamp(2.4rem, 9vw, 3.2rem) !important;
+    font-size: clamp(2.2rem, 9vw, 3rem) !important;
     line-height: 0.92 !important;
   }
 
@@ -521,21 +536,40 @@
     padding-left: 20px !important;
     padding-right: 20px !important;
   }
-
-  /* Inner containers full width */
   section > div[style*="maxWidth"] {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
 
-  /* ── MOBILE NAV BUTTONS ── */
-  .mobile-nav-btn {
-    cursor: auto !important;
+  /* ── FOOTER ── */
+  footer {
+    padding-bottom: 24px !important;
   }
 
-  /* ── FOOTER ── */
-  #footer .footer-ghost {
-    font-size: clamp(3rem, 18vw, 6rem) !important;
+  /* Ghost text smaller on mobile */
+  footer > div:nth-child(2) > div {
+    font-size: clamp(3rem, 16vw, 5rem) !important;
+    padding: 0 16px !important;
+  }
+
+  /* Brand + socials — stack vertically */
+  footer .footer-brand-row {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+  }
+
+  /* Bottom bar — stack on very small screens */
+  footer .footer-bottom-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 10px !important;
+  }
+
+  /* Social icons — wrap nicely */
+  footer .footer-socials {
+    flex-wrap: wrap !important;
+    gap: 10px !important;
   }
 }
 

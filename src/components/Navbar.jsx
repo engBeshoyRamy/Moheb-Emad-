@@ -38,11 +38,9 @@ function LogoEQBars() {
   )
 }
 
-/* ── Theme Toggle ── */
 function ThemeToggle() {
   const { theme, toggle } = useTheme()
   const isLight = theme === 'light'
-
   return (
     <button
       onClick={toggle}
@@ -67,7 +65,7 @@ export default function Navbar() {
   const location = useLocation()
   const isHome = location.pathname === '/'
   const scrollTo = useScrollTo()
-  const { theme, toggle } = useTheme()
+  const { theme } = useTheme()
 
   const onScroll = useCallback(() => {
     setScrolled(window.scrollY > 60)
@@ -137,14 +135,23 @@ export default function Navbar() {
         <button
           onClick={handleLogoClick}
           aria-label="Go to home"
-          style={{ display: 'flex', alignItems: 'center', gap: 12, background: 'none', border: 'none', cursor: 'none' }}
+          style={{
+            display: 'flex', alignItems: 'center', gap: 12,
+            background: 'none', border: 'none', cursor: 'pointer',
+          }}
         >
           <LogoEQBars />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-            <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '0.68rem', letterSpacing: '0.22em', color: 'var(--white)', lineHeight: 1 }}>
+            <span style={{
+              fontFamily: 'var(--ff-mono)', fontSize: '0.68rem',
+              letterSpacing: '0.22em', color: 'var(--white)', lineHeight: 1,
+            }}>
               Sound
             </span>
-            <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '0.42rem', letterSpacing: '0.28em', color: 'var(--lav)', lineHeight: 1 }}>
+            <span style={{
+              fontFamily: 'var(--ff-mono)', fontSize: '0.42rem',
+              letterSpacing: '0.28em', color: 'var(--lav)', lineHeight: 1,
+            }}>
               ENGINEER
             </span>
           </div>
@@ -173,7 +180,10 @@ export default function Navbar() {
                   {link}
                   <motion.span
                     aria-hidden="true"
-                    style={{ position: 'absolute', bottom: 4, left: 18, right: 18, height: 1, background: 'var(--lav)', display: 'block' }}
+                    style={{
+                      position: 'absolute', bottom: 4, left: 18, right: 18,
+                      height: 1, background: 'var(--lav)', display: 'block',
+                    }}
                     initial={false}
                     animate={{ scaleX: isActive ? 1 : 0 }}
                     transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -196,7 +206,11 @@ export default function Navbar() {
               background: 'none', padding: '9px 22px', borderRadius: 2,
               cursor: 'none', position: 'relative', overflow: 'hidden',
             }}
-            whileHover={{ borderColor: 'rgba(158,146,231,0.7)', backgroundColor: 'rgba(32,0,234,0.15)', boxShadow: 'var(--glow-l)' }}
+            whileHover={{
+              borderColor: 'rgba(158,146,231,0.7)',
+              backgroundColor: 'rgba(32,0,234,0.15)',
+              boxShadow: 'var(--glow-l)',
+            }}
             transition={{ duration: 0.3 }}
             aria-label="Contact Moheb Emad for hire"
           >
@@ -209,7 +223,12 @@ export default function Navbar() {
           <ThemeToggle />
           <button
             onClick={() => setMenuOpen(v => !v)}
-            style={{ background: 'none', border: 'none', cursor: 'none', display: 'flex', flexDirection: 'column', gap: '5px', padding: '8px' }}
+            style={{
+              background: 'none', border: 'none',
+              cursor: 'pointer',
+              display: 'flex', flexDirection: 'column',
+              gap: '6px', padding: '10px 8px',
+            }}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
@@ -218,12 +237,16 @@ export default function Navbar() {
               <motion.span
                 key={i}
                 aria-hidden="true"
-                style={{ width: 20, height: 1, background: 'var(--lav)', display: 'block' }}
+                style={{
+                  width: 24, height: 2,
+                  background: 'var(--lav)',
+                  display: 'block', borderRadius: 2,
+                }}
                 animate={
                   menuOpen
-                    ? i === 0 ? { rotate: 45, y: 6 }
+                    ? i === 0 ? { rotate: 45, y: 8 }
                     : i === 1 ? { opacity: 0, scaleX: 0 }
-                    : { rotate: -45, y: -6 }
+                    : { rotate: -45, y: -8 }
                     : { rotate: 0, y: 0, opacity: 1, scaleX: 1 }
                 }
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
@@ -233,7 +256,7 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* Mobile menu */}
+      {/* Mobile full-screen menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -267,15 +290,22 @@ export default function Navbar() {
                       fontFamily: 'var(--ff-disp)',
                       fontSize: 'clamp(2.8rem, 9vw, 5rem)',
                       letterSpacing: '0.04em',
-                      color: 'var(--border)',
+                      /* FIX: was var(--border) which is near-invisible */
+                      color: 'var(--gray)',
                       background: 'none', border: 'none',
                       padding: '6px 0', display: 'block',
-                      cursor: 'none', transition: 'color 0.25s',
+                      cursor: 'pointer',
+                      transition: 'color 0.25s',
+                      WebkitTapHighlightColor: 'transparent',
                     }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--lav)' }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--border)' }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--gray)' }}
                     onTouchStart={(e) => { e.currentTarget.style.color = 'var(--lav)' }}
-                    onTouchEnd={(e) => { e.currentTarget.style.color = 'var(--border)' }}
+                    onTouchEnd={(e) => {
+                      setTimeout(() => {
+                        if (e.currentTarget) e.currentTarget.style.color = 'var(--gray)'
+                      }, 200)
+                    }}
                   >
                     {link}
                   </motion.button>
@@ -288,12 +318,12 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 12,
-                marginTop: 48,
-              }}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 48 }}
             >
-              <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '0.58rem', letterSpacing: '0.18em', color: 'var(--gray)', textTransform: 'uppercase' }}>
+              <span style={{
+                fontFamily: 'var(--ff-mono)', fontSize: '0.58rem',
+                letterSpacing: '0.18em', color: 'var(--gray)', textTransform: 'uppercase',
+              }}>
                 {theme === 'dark' ? 'Dark Mode' : 'Light Mode'}
               </span>
               <ThemeToggle />

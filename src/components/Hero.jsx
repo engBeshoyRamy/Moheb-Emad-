@@ -185,6 +185,43 @@ export default function Hero() {
         pointerEvents: 'none',
       }} />
 
+      {/* ── MOBILE ONLY: Portrait as full background ── */}
+      <div
+        className="hero-mobile-bg"
+        aria-hidden="true"
+        style={{
+          position: 'absolute', inset: 0,
+          zIndex: 1, pointerEvents: 'none',
+          display: 'none', // shown via CSS on mobile
+        }}
+      >
+        <img
+          src="/portrait.jpg"
+          alt=""
+          style={{
+            width: '100%', height: '100%',
+            objectFit: 'cover',
+            objectPosition: 'center top',
+            display: 'block',
+          }}
+        />
+        {/* Heavy gradient so text is readable */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to bottom, rgba(2,2,2,0.55) 0%, rgba(2,2,2,0.72) 40%, rgba(2,2,2,0.92) 75%, var(--void) 100%)',
+        }} />
+        {/* Side vignette */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to right, rgba(2,2,2,0.4) 0%, transparent 50%, rgba(2,2,2,0.4) 100%)',
+        }} />
+        {/* Blue accent glow */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse at 50% 30%, rgba(32,0,234,0.18) 0%, transparent 65%)',
+        }} />
+      </div>
+
       {/* ── Left column: TEXT ── */}
       <motion.div
         className="hero-text-col"
@@ -336,7 +373,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* ── Right column: PORTRAIT ── */}
+      {/* ── Right column: PORTRAIT (desktop only) ── */}
       <motion.div
         className="hero-portrait-col"
         style={{
@@ -406,7 +443,7 @@ export default function Hero() {
             <Portrait />
           </div>
 
-          {/* Corner labels */}
+          {/* Corner accents */}
           <div aria-hidden="true" style={{
             position: 'absolute', top: -10, left: 16, zIndex: 10,
             fontFamily: 'var(--ff-mono)', fontSize: '0.52rem',
@@ -427,7 +464,7 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Scroll hint */}
+      {/* Scroll hint — desktop only */}
       <motion.div
         className="hero-scroll-hint"
         initial={{ opacity: 0 }}

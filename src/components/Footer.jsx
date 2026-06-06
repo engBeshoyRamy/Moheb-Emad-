@@ -55,17 +55,17 @@ const SOCIALS = [
 
 export default function Footer() {
   return (
-    <footer style={{
-      position: 'relative', zIndex: 10,
-      paddingBottom: 'clamp(24px, 3vw, 40px)',
-      marginTop: 0,
-    }}>
-
+    <footer
+      style={{
+        position: 'relative', zIndex: 10,
+        paddingBottom: 'clamp(24px, 3vw, 40px)',
+        marginTop: 0,
+      }}
+    >
       {/* Top gradient border */}
       <div style={{
         height: 1,
         background: 'linear-gradient(90deg, transparent, rgba(32,0,234,0.4), rgba(158,146,231,0.3), transparent)',
-        marginBottom: 0,
       }} />
 
       {/* Ghost text */}
@@ -74,11 +74,11 @@ export default function Footer() {
           aria-hidden="true"
           style={{
             fontFamily: 'var(--ff-disp)',
-            fontSize: 'clamp(5rem, 13vw, 13rem)',
+            fontSize: 'clamp(3.5rem, 13vw, 13rem)',
             letterSpacing: '0.02em',
             lineHeight: 0.85,
             userSelect: 'none',
-            padding: '0 clamp(20px, 5vw, 64px)',
+            padding: '0 clamp(16px, 5vw, 64px)',
             background: 'linear-gradient(180deg, var(--border) 0%, transparent 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -91,22 +91,28 @@ export default function Footer() {
 
       {/* Main footer content */}
       <div style={{
-        maxWidth: 1300, margin: '-clamp(16px,2vw,28px) auto 0',
-        padding: '0 clamp(20px, 5vw, 64px)',
+        maxWidth: 1300, margin: '-clamp(12px,2vw,28px) auto 0',
+        padding: '0 clamp(16px, 5vw, 64px)',
         position: 'relative',
       }}>
 
         {/* Brand + socials row */}
-        <div style={{
-          display: 'flex', flexWrap: 'wrap',
-          justifyContent: 'space-between', alignItems: 'flex-end',
-          gap: 24, paddingBottom: 24,
-          borderBottom: '1px solid var(--border)',
-        }}>
+        <div
+          className="footer-brand-row"
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'flex-end',
+            gap: 24,
+            paddingBottom: 24,
+            borderBottom: '1px solid var(--border)',
+          }}
+        >
           {/* Brand */}
           <div>
             <div style={{
-              fontFamily: 'var(--ff-disp)', fontSize: '1.9rem',
+              fontFamily: 'var(--ff-disp)', fontSize: 'clamp(1.4rem, 4vw, 1.9rem)',
               letterSpacing: '0.08em', color: 'var(--white)', lineHeight: 1,
             }}>
               MOHEB EMAD
@@ -120,7 +126,10 @@ export default function Footer() {
           </div>
 
           {/* Social icons */}
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+          <div
+            className="footer-socials"
+            style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}
+          >
             {SOCIALS.map((s) => (
               <motion.a
                 key={s.name}
@@ -130,13 +139,14 @@ export default function Footer() {
                 title={s.name}
                 aria-label={s.name}
                 style={{
-                  width: 38, height: 38,
+                  width: 40, height: 40,
                   border: '1px solid var(--border)',
                   borderRadius: 6,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: 'var(--gray)',
                   textDecoration: 'none',
                   background: 'var(--card)',
+                  WebkitTapHighlightColor: 'transparent',
                 }}
                 whileHover={{
                   y: -4,
@@ -144,6 +154,11 @@ export default function Footer() {
                   color: s.color,
                   background: s.color + '12',
                   boxShadow: `0 4px 20px ${s.color}22`,
+                }}
+                whileTap={{
+                  scale: 0.92,
+                  color: s.color,
+                  borderColor: s.color + '70',
                 }}
                 transition={{ duration: 0.18 }}
               >
@@ -154,13 +169,19 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{
-          paddingTop: 20,
-          display: 'flex', flexWrap: 'wrap',
-          justifyContent: 'space-between', alignItems: 'center', gap: 12,
-          fontFamily: 'var(--ff-mono)', fontSize: '0.54rem',
-          letterSpacing: '0.12em', color: 'var(--gray)',
-        }}>
+        <div
+          className="footer-bottom-bar"
+          style={{
+            paddingTop: 20,
+            display: 'flex',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 12,
+            fontFamily: 'var(--ff-mono)', fontSize: '0.54rem',
+            letterSpacing: '0.12em', color: 'var(--gray)',
+          }}
+        >
           <span>© 2025 Moheb Emad. All rights reserved.</span>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

@@ -106,9 +106,13 @@ export default function About() {
                   <img
                     src="/moheb.jpg"
                     alt="Moheb Emad — Sound Engineer"
+                    className="about-photo-img"
                     style={{
                       width: '100%', height: '100%',
-                      objectFit: 'cover', objectPosition: 'top center', display: 'block',
+                      objectFit: 'cover',
+                      /* desktop: show from top */
+                      objectPosition: 'top center',
+                      display: 'block',
                       filter: 'brightness(0.9) contrast(1.08) saturate(0.9)',
                     }}
                   />
