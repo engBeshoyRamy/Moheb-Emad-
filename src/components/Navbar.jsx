@@ -112,6 +112,19 @@ export default function Navbar() {
 
   return (
     <>
+      <style>{`
+        @media (max-width: 768px) {
+          .nav-desktop-links { display: none !important; }
+          .nav-desktop-right  { display: none !important; }
+          .nav-mobile-right   { display: flex !important; }
+        }
+        @media (min-width: 769px) {
+          .nav-desktop-links { display: flex !important; }
+          .nav-desktop-right  { display: flex !important; }
+          .nav-mobile-right   { display: none !important; }
+        }
+      `}</style>
+
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -157,8 +170,12 @@ export default function Navbar() {
           </div>
         </button>
 
-        {/* Desktop nav */}
-        <ul style={{ display: 'flex', gap: 0, listStyle: 'none' }} className="hidden md:flex" role="list">
+        {/* Desktop nav links */}
+        <ul
+          className="nav-desktop-links"
+          style={{ gap: 0, listStyle: 'none', alignItems: 'center' }}
+          role="list"
+        >
           {NAV_LINKS.map((link) => {
             const isActive = activeSection === link.toLowerCase()
             return (
@@ -195,7 +212,10 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop right: theme toggle + hire me */}
-        <div className="hidden md:flex items-center gap-3">
+        <div
+          className="nav-desktop-right"
+          style={{ alignItems: 'center', gap: 12 }}
+        >
           <ThemeToggle />
           <motion.button
             onClick={() => handleNavClick('contact')}
@@ -219,7 +239,10 @@ export default function Navbar() {
         </div>
 
         {/* Mobile right: theme toggle + hamburger */}
-        <div className="flex md:hidden items-center gap-3">
+        <div
+          className="nav-mobile-right"
+          style={{ alignItems: 'center', gap: 12 }}
+        >
           <ThemeToggle />
           <button
             onClick={() => setMenuOpen(v => !v)}
@@ -288,12 +311,11 @@ export default function Navbar() {
                     onClick={() => handleNavClick(link)}
                     style={{
                       fontFamily: 'var(--ff-disp)',
-                      fontSize: 'clamp(2.8rem, 9vw, 5rem)',
+                      fontSize: 'clamp(2rem, 8vw, 3.5rem)',
                       letterSpacing: '0.04em',
-                      /* FIX: was var(--border) which is near-invisible */
                       color: 'var(--gray)',
                       background: 'none', border: 'none',
-                      padding: '6px 0', display: 'block',
+                      padding: '8px 0', display: 'block',
                       cursor: 'pointer',
                       transition: 'color 0.25s',
                       WebkitTapHighlightColor: 'transparent',
@@ -318,7 +340,7 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 48 }}
+              style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 40 }}
             >
               <span style={{
                 fontFamily: 'var(--ff-mono)', fontSize: '0.58rem',
